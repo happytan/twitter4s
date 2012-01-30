@@ -1,17 +1,19 @@
 package t4s.internal.http
 
-class RequestMethod {
-	var _name: String = ""
-	def setName(name: String) {
-		_name = name
-	}
-	override def toString = "RequestMethod{name='" + _name + "'}"
+class RequestMethod private(private val _name: String) {
+	
+	def name() = _name
 	
 	override def hashCode = _name.hashCode
 	override def equals(other: Any): Boolean = other match {
-		case that: RequestMethod => println("this._name:" + this._name + " that._name:" + that._name); this._name == that._name
-		case _ => println("bb"); false
+		case that: RequestMethod => (that canEqual this) && this._name == that._name
+		case _ =>  false
 	}
+	def canEqual(other: Any): Boolean = other match {
+		case othe: RequestMethod => true
+		case _ => false
+	}
+        override def toString = "RequestMethod{name='" + _name + "'}"
 }
 
 object RequestMethod {
@@ -23,8 +25,8 @@ object RequestMethod {
 	val PUT = RequestMethod("PUT")
 	
 	def apply(name: String) = {
-		var requestMethod =  new RequestMethod()
-		requestMethod.setName(name)
+		var requestMethod =  new RequestMethod(name)
+		//requestMethod.setName(name)
 		requestMethod
 	}
 }
