@@ -26,7 +26,6 @@ object RequestMethod {
 	
 	def apply(name: String) = {
 		var requestMethod =  new RequestMethod(name)
-		//requestMethod.setName(name)
 		requestMethod
 	}
 }
